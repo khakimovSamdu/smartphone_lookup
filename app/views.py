@@ -90,6 +90,22 @@ def smartphone_filter(request: HttpRequest):
             ruyxat.append(item.to_dict())
     return JsonResponse(ruyxat, safe=False)
 
+def get_brend_name(request: HttpRequest):
+    data = Smartphone.objects.all()
+    ruyxat = []
+    for item in data:
+        print(item)
+        ruyxat.append(item.to_dict())
+    return JsonResponse(ruyxat, safe=False)
+
+def brend_all(request: HttpRequest, brend: str):
+    data = Smartphone.objects.filter(company__contains=brend)
+    ruyxat = []
+    for item in data:
+            ruyxat.append(item.to_dict())
+    return JsonResponse(ruyxat, safe=False)
+
+
 def smartphone_lookup(request: HttpRequest):
     data = Smartphone.objects.filter(name__icontains="Apple")
     print(len(data))
