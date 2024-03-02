@@ -94,9 +94,11 @@ def get_brend_name(request: HttpRequest):
     data = Smartphone.objects.all()
     ruyxat = []
     for item in data:
-        print(item)
-        ruyxat.append(item.to_dict())
-    return JsonResponse(ruyxat, safe=False)
+        brend = item.to_dict()
+        if brend['company'] not in ruyxat:
+             ruyxat.append(brend['company'])
+    return HttpResponse(brend)
+
 
 def brend_all(request: HttpRequest, brend: str):
     data = Smartphone.objects.filter(company__contains=brend)
